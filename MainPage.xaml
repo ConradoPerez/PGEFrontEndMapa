@@ -1,0 +1,66 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mapsui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
+             x:Class="IntegrarMapa.MainPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- 🌍 Mapa -->
+        <mapsui:MapControl x:Name="mapControl" Grid.Column="0"/>
+
+        <!-- 📋 Panel de incidencias -->
+        <StackLayout Grid.Column="1" Padding="10" BackgroundColor="#f4f4f4">
+            <Label Text="📌 Incidencias"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <Button Text="Agregar incidencia"
+                    BackgroundColor="Red"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Margin="0,10"
+                    Clicked="OnAgregarIncidenciaClicked"/>
+
+            <CollectionView x:Name="IncidenciasList"
+                SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray"
+                   CornerRadius="8"
+                   Padding="5"
+                   Margin="5">
+                            <!-- ✅ Un solo hijo: StackLayout -->
+                            <StackLayout>
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <!-- Título -->
+                                    <Label Text="{Binding Titulo}" 
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+
+                                    <!-- Botón de opciones -->
+                                    <Button Grid.Column="1"
+                                Text="⋮"
+                                FontSize="18"
+                                Padding="0"
+                                BackgroundColor="Transparent"
+                                Clicked="OnIncidenciaMenuClicked"
+                                CommandParameter="{Binding}" />
+                                </Grid>
+
+                                <!-- Coordenadas debajo -->
+                                <Label Text="{Binding Coordenadas}" FontSize="12"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+        </StackLayout>
+    </Grid>
+</ContentPage>
